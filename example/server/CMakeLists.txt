@@ -7,11 +7,23 @@ project(server LANGUAGES CXX)
 
 add_executable(${CMAKE_PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/parse_arguments.cpp
     )
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../.. ${CMAKE_BINARY_DIR}/lib/locket)
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+    )
+
+add_subdirectory(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../.. ${CMAKE_BINARY_DIR}/lib/locket
+)
+add_subdirectory(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../common ${CMAKE_BINARY_DIR}/lib/common
+    )
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
     PRIVATE
         locket
+        common
     )
